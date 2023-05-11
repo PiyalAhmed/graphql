@@ -38,7 +38,7 @@ public class AuthorControllerTest {
 		Mockito.when(authorServiceImpl.getAuthorByName(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
 				.thenReturn(author);
 		
-		Author result = authorController.author("John", "Doe");
+		Author result = authorController.author(author.firstName(), author.lastName());
 		
 		Assertions.assertEquals(author, result);
 		Mockito.verify(authorServiceImpl, Mockito.times(1)).getAuthorByName("John", "Doe");

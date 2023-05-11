@@ -44,7 +44,7 @@ public class BookControllerTest {
 		when(bookServiceImpl.book(anyString())).thenReturn(book);
 		
 		BookController bookController = new BookController(bookServiceImpl);
-		Book result = bookController.book("Test Book");
+		Book result = bookController.book(book.name());
 		
 		assertThat(result).isEqualTo(book);
 	}
@@ -80,9 +80,18 @@ public class BookControllerTest {
 	@Test
 	public void testAddBook() {
 		when(bookServiceImpl.addBook(anyString(), anyInt(), anyString())).thenReturn("Book added successfully");
-		
+		Author author = Author.builder()
+				.id(UUID.randomUUID())
+				.firstName("Test")
+				.lastName("Author")
+				.build();
+		Book book = Book.builder()
+				.name("Test Book 1")
+				.pageCount(100)
+				.author(author)
+				.build();
 		BookController bookController = new BookController(bookServiceImpl);
-		String result = bookController.addBook("Test Book", 100, "Test Author");
+		String result = bookController.addBook(book.name(), book.pageCount(), book.author().firstName());
 		
 		assertThat(result).isEqualTo("Book added successfully");
 	}
@@ -90,9 +99,18 @@ public class BookControllerTest {
 	@Test
 	public void testRemoveBook() {
 		when(bookServiceImpl.removeBook(anyString())).thenReturn("Book removed successfully");
-		
+		Author author = Author.builder()
+				.id(UUID.randomUUID())
+				.firstName("Test")
+				.lastName("Author")
+				.build();
+		Book book = Book.builder()
+				.name("Test Book 1")
+				.pageCount(100)
+				.author(author)
+				.build();
 		BookController bookController = new BookController(bookServiceImpl);
-		String result = bookController.removeBook("Test Book");
+		String result = bookController.removeBook(book.name());
 		
 		assertThat(result).isEqualTo("Book removed successfully");
 	}
