@@ -30,7 +30,6 @@ class BookServiceImplTest {
 		assertEquals("Author Demo does not exist", message);
 		authorService.addAuthor("Demo", "Author");
 		message = bookService.addBook("Demo Book", 100, "Demo");
-		;
 		assertEquals("Demo Book by Demo Author is added!", message);
 	}
 	

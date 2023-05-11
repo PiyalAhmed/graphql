@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class AuthorControllerTest {
-	private static final Logger logger = LoggerFactory.getLogger(AuthorControllerTest.class);
-	
 	@InjectMocks
 	AuthorController authorController;
 	
