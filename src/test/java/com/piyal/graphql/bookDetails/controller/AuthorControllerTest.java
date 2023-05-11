@@ -39,7 +39,8 @@ public class AuthorControllerTest {
 				.lastName("Doe")
 				.build();
 		
-		Mockito.when(authorServiceImpl.getAuthorByName(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(author);
+		Mockito.when(authorServiceImpl.getAuthorByName(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
+				.thenReturn(author);
 		
 		Author result = authorController.author("John", "Doe");
 		
@@ -75,7 +76,8 @@ public class AuthorControllerTest {
 	void testAddAuthor() {
 		String firstName = "John";
 		String lastName = "Doe";
-		Mockito.when(authorServiceImpl.addAuthor(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn("Author added successfully");
+		Mockito.when(authorServiceImpl.addAuthor(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
+				.thenReturn("Author added successfully");
 		
 		String result = authorController.addAuthor(firstName, lastName);
 		
@@ -87,7 +89,8 @@ public class AuthorControllerTest {
 	void testRemoveAuthor() {
 		String firstName = "John";
 		String lastName = "Doe";
-		Mockito.when(authorServiceImpl.removeAuthor(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn("Author removed successfully");
+		Mockito.when(authorServiceImpl.removeAuthor(ArgumentMatchers.anyString(), ArgumentMatchers.anyString()))
+				.thenReturn("Author removed successfully");
 		
 		String result = authorController.removeAuthor(firstName, lastName);
 		

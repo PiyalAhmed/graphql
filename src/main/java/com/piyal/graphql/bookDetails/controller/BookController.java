@@ -1,7 +1,6 @@
 package com.piyal.graphql.bookDetails.controller;
 
 import com.piyal.graphql.bookDetails.model.Book;
-import com.piyal.graphql.bookDetails.service.AuthorServiceImpl;
 import com.piyal.graphql.bookDetails.service.BookServiceImpl;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -13,25 +12,28 @@ import java.util.List;
 @Controller
 public class BookController {
 	private final BookServiceImpl bookServiceImpl;
-	BookController(BookServiceImpl bookServiceImpl){
+	
+	BookController(BookServiceImpl bookServiceImpl) {
 		this.bookServiceImpl = bookServiceImpl;
 	}
+	
 	@QueryMapping
-	Book book(@Argument String name){
+	Book book(@Argument String name) {
 		return bookServiceImpl.book(name);
 	}
 	
 	@QueryMapping
-	List<Book> books(){
+	List<Book> books() {
 		return bookServiceImpl.books();
 	}
 	
 	@MutationMapping
-	String addBook(@Argument String name, @Argument int pageCount, @Argument String authorFirstName){
-		return  bookServiceImpl.addBook(name, pageCount, authorFirstName);
+	String addBook(@Argument String name, @Argument int pageCount, @Argument String authorFirstName) {
+		return bookServiceImpl.addBook(name, pageCount, authorFirstName);
 	}
+	
 	@MutationMapping
-	String removeBook(@Argument String name){
+	String removeBook(@Argument String name) {
 		return bookServiceImpl.removeBook(name);
 	}
 }

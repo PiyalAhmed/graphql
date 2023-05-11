@@ -16,30 +16,31 @@ import java.util.List;
 public class AuthorController {
 	private static final Logger logger = LoggerFactory.getLogger(AuthorController.class);
 	private final AuthorServiceImpl authorServiceImpl;
-	AuthorController(AuthorServiceImpl authorServiceImpl){
+	
+	AuthorController(AuthorServiceImpl authorServiceImpl) {
 		this.authorServiceImpl = authorServiceImpl;
 	}
 	
 	@QueryMapping
-	Author author(@Argument String firstName, @Argument String lastName){
+	Author author(@Argument String firstName, @Argument String lastName) {
 		logger.info("Getting Author {} {}...", firstName, lastName);
-		return authorServiceImpl.getAuthorByName(firstName,lastName);
+		return authorServiceImpl.getAuthorByName(firstName, lastName);
 	}
 	
 	@QueryMapping
-	List<Author> authors(){
+	List<Author> authors() {
 		logger.info("Getting all authors...");
 		return authorServiceImpl.getAuthors();
 	}
 	
 	@MutationMapping
-	String addAuthor(@Argument String firstName, @Argument String lastName){
+	String addAuthor(@Argument String firstName, @Argument String lastName) {
 		logger.info("Adding author {} {}...", firstName, lastName);
-		return authorServiceImpl.addAuthor(firstName,lastName);
+		return authorServiceImpl.addAuthor(firstName, lastName);
 	}
 	
 	@MutationMapping
-	String removeAuthor(@Argument String firstName, @Argument String lastName){
+	String removeAuthor(@Argument String firstName, @Argument String lastName) {
 		logger.info("Removing author {} {}...", firstName, lastName);
 		return authorServiceImpl.removeAuthor(firstName, lastName);
 	}

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AuthorServiceImpl implements AuthorService{
+public class AuthorServiceImpl implements AuthorService {
 	private static final Logger logger = LoggerFactory.getLogger(AuthorServiceImpl.class);
 	
 	// Using as database for authors
@@ -25,8 +25,8 @@ public class AuthorServiceImpl implements AuthorService{
 				.lastName(lastName)
 				.build();
 		authors.add(author);
-		logger.info("Author {} {} added!",firstName, lastName);
-		return String.format("Author %s %s added!",firstName, lastName);
+		logger.info("Author {} {} added!", firstName, lastName);
+		return String.format("Author %s %s added!", firstName, lastName);
 	}
 	
 	@Override
@@ -36,13 +36,13 @@ public class AuthorServiceImpl implements AuthorService{
 								author.lastName().equalsIgnoreCase(lastName))
 				.findFirst()
 				.orElse(null);
-		if(authorToBeRemoved != null){
+		if (authorToBeRemoved != null) {
 			authors.remove(authorToBeRemoved);
 			logger.info("Author {} {} is removed from the database!", firstName, lastName);
-			return String.format("Author %s %s is removed from the database!",firstName, lastName);
+			return String.format("Author %s %s is removed from the database!", firstName, lastName);
 		}
 		logger.info("Author {} {} doesn't exist or something went wrong.", firstName, lastName);
-		return String.format("Author %s %s doesn't exist or something went wrong.",firstName, lastName);
+		return String.format("Author %s %s doesn't exist or something went wrong.", firstName, lastName);
 	}
 	
 	@Override

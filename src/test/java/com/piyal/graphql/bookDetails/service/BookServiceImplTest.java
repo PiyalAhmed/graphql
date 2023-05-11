@@ -5,7 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class BookServiceImplTest {
 	AuthorServiceImpl authorService;
@@ -25,17 +26,18 @@ class BookServiceImplTest {
 	
 	@Test
 	void addBook() {
-		String message = bookService.addBook("Demo Book",100,"Demo");
+		String message = bookService.addBook("Demo Book", 100, "Demo");
 		assertEquals("Author Demo does not exist", message);
-		authorService.addAuthor("Demo","Author");
-		message =bookService.addBook("Demo Book",100,"Demo");;
+		authorService.addAuthor("Demo", "Author");
+		message = bookService.addBook("Demo Book", 100, "Demo");
+		;
 		assertEquals("Demo Book by Demo Author is added!", message);
 	}
 	
 	@Test
 	void removeBook() {
-		authorService.addAuthor("Demo","Author");
-		bookService.addBook("Demo Book",100,"Demo");
+		authorService.addAuthor("Demo", "Author");
+		bookService.addBook("Demo Book", 100, "Demo");
 		String message = bookService.removeBook("Demo Book");
 		assertEquals("Book, Demo Book is removed!", message);
 		message = bookService.removeBook("Demo Book");
