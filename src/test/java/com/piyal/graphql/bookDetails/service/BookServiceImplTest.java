@@ -2,12 +2,9 @@ package com.piyal.graphql.bookDetails.service;
 
 import com.piyal.graphql.bookDetails.model.Author;
 import com.piyal.graphql.bookDetails.model.Book;
-import com.piyal.graphql.bookDetails.repository.AuthorRepository;
 import com.piyal.graphql.bookDetails.repository.BookRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
