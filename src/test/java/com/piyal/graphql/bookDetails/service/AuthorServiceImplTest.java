@@ -1,69 +1,98 @@
 package com.piyal.graphql.bookDetails.service;
 
 import com.piyal.graphql.bookDetails.model.Author;
-import org.junit.jupiter.api.AfterEach;
+import com.piyal.graphql.bookDetails.repository.AuthorRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 class AuthorServiceImplTest {
-	AuthorServiceImpl authorService;
+	
+	private AuthorServiceImpl authorService;
+	
+	@Mock
+	private AuthorRepository authorRepository;
 	
 	@BeforeEach
 	void setUp() {
-		authorService = new AuthorServiceImpl();
-	}
-	
-	@AfterEach
-	void tearDown() {
-		authorService = null;
+		MockitoAnnotations.openMocks(this);
+		authorService = new AuthorServiceImpl(authorRepository);
 	}
 	
 	@Test
-	@DisplayName("getAuthors() method of AuthorServiceImpl class")
-	void getAuthors() {
-		authorService.addAuthor("Demo", "Author");
-		authorService.addAuthor("Demo", "Author2");
-		assertFalse(authorService.getAuthors().isEmpty());
-		assertEquals(2, authorService.getAuthors().size());
-	}
-	
-	@Test
-	@DisplayName("addAuthor() method of AuthorServiceImpl class")
 	void addAuthor() {
-		String message = authorService.addAuthor("Demo", "Author");
-		assertEquals("Author Demo Author added!", message);
-		assertEquals(1, authorService.getAuthors().size());
-		authorService.addAuthor("Demo", "Author2");
-		assertEquals(2, authorService.getAuthors().size());
+		String firstName = "John";
+		String lastName = "Doe";
+		
+		when(authorRepository.addAuthor(firstName, lastName)).thenReturn("Author John Doe added!");
+		
+		String result = authorService.addAuthor(firstName, lastName);
+		
+		assertEquals("Author John Doe added!", result);
 	}
 	
 	@Test
-	@DisplayName("removeAuthor() method of AuthorServiceImpl class")
 	void removeAuthor() {
-		String message = authorService.removeAuthor("Demo", "Author");
-		assertEquals("Author Demo Author doesn't exist or something went wrong.", message);
-		authorService.addAuthor("Demo", "Author");
-		message = authorService.removeAuthor("Demo", "Author");
-		assertEquals("Author Demo Author is removed from the database!", message);
-		assertTrue(authorService.getAuthors().isEmpty());
+		String firstName = "John";
+		String lastName = "Doe";
+		
+		when(authorRepository.removeAuthor(firstName, lastName)).thenReturn("Author John Doe removed!");
+		
+		String result = authorService.removeAuthor(firstName, lastName);
+		
+		assertEquals("Author John Doe removed!", result);
 	}
 	
 	@Test
-	@DisplayName("getAuthorByName() method of AuthorServiceImpl class")
 	void getAuthorByName() {
-		Author author = authorService.getAuthorByName("Demo", "Author");
-		assertNull(author);
-		authorService.addAuthor("Demo", "Author");
-		author = authorService.getAuthorByName("Demo", "Author");
-		assertNotNull(author);
-		assertEquals("Demo", author.firstName());
-		assertEquals("Author", author.lastName());
+		String firstName = "John";
+		String lastName = "Doe";
+		
+		Author author = Author.builder()
+				.firstName(firstName)
+				.lastName(lastName)
+				.build();
+		
+		when(authorRepository.getAuthorByName(firstName, lastName)).thenReturn(author);
+		
+		Author result = authorService.getAuthorByName(firstName, lastName);
+		
+		assertNotNull(result);
+		assertEquals(firstName, result.firstName());
+		assertEquals(lastName, result.lastName());
+	}
+	
+	@Test
+	void getAuthors() {
+		List<Author> authors = new ArrayList<>();
+		
+		authors.add(Author.builder()
+				.firstName("John")
+				.lastName("Doe")
+				.build());
+		
+		authors.add(Author.builder()
+				.firstName("Jane")
+				.lastName("Doe")
+				.build());
+		
+		when(authorRepository.authors()).thenReturn(authors);
+		
+		List<Author> result = authorService.getAuthors();
+		
+		assertNotNull(result);
+		assertEquals(authors.size(), result.size());
+		assertEquals(authors.get(0).firstName(), result.get(0).firstName());
+		assertEquals(authors.get(0).firstName(), result.get(0).firstName());
+		assertEquals(authors.get(1).firstName(), result.get(1).firstName());
+		assertEquals(authors.get(1).firstName(), result.get(1).firstName());
 	}
 }

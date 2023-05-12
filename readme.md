@@ -9,21 +9,25 @@ We didn't use an actual database though, we have used a fake in memory database(
 
 This database will be empty when the application starts, and also will be removed if the application is stopped. So, restarting your application would get you a new fresh empty database everytime.
 
-**This project has three packages:**.
+**This project has four packages:**.
 
 ### 1. controller package
 In this package, there are two controllers, there are two types of mapping in this project: `@QueryMapping` and `@MutationMapping`.
 `@QueryMapping` can be compared with the `GET` request, though all the requests of graphql is `POST` request, and
-`@MutationMapping` can be compared with the `POST` request.
+`@MutationMapping` can be compared with the `POST` request. Controller classes should be annotated with `@Controller`.
 
 `AuthorController.java` controls the Author related request-response and the `BookController.java` controls the Book related request-response.
 
 ### 2. model package
 In this package, there are two types of data model, one is `Author` and another is `Book`. These models hold the data of the Book and the Author.
 
-### 3. service package
+### 3. repository package
+In this package, there are two repository, one is `AuthorRepository` and another is `BookRepository`. The holds the information about the database and the methods to operate on the database.
+Repositories should be annotated with `@Repository`.
+
+### 4. service package
 In this package, there are two `Interface` named `AuthorService` and `BookService`. They both hold the functionality of what a user can do with these.
-We define the business logic, or the service we want to get with this model and controller.
+We define the business logic, or the service we want to get with this model and controller. Services should be annotated with `@Service`.
 
 ## Sending request
 We can use postman or the `graphiql` interface. Graphiql interface is a default graphical user interface to work with graphql request and response.
